@@ -2376,6 +2376,18 @@ button:disabled,
   background-color: #35653a;
 }
 
+.panel > *.color6 {
+  background-image: url("../../images/overlay.png"),
+    linear-gradient(
+      45deg,
+      rgba(97, 97, 147, 0.25) 25%,
+      rgba(196, 123, 227, 0.25) 50%,
+      rgba(255, 180, 245, 0.25)
+    );
+  background-size: 128px 128px, auto;
+  background-color: #315796;
+}
+
 .panel > *.color1-alt {
   background-image: url("../../images/overlay.png"),
     linear-gradient(
