@@ -7,7 +7,7 @@ date: 2024-07-25
 ![Acadia Demo](media/small_acadia.mp4)
 
 [Acadia](https://www.acadia-ai.com/) is a Data-Centric AI startup I worked on with [Emily Li](https://x.com/EmilyLiJiayao). It was one of the greatest learning experiences I had,
-and was my first serious, all-in attempt at creating a company. It also was a ton of fun to build :) We both dropped out of CMU for one semester and rented a hacker house in Haight-Ashbury. I have a ton of fond memories staying up late to prepare for demos, running customer development calls, getting distracted from work with karaoke, and hanging out other founders in the city.
+and was my first serious, all-in attempt at creating a company. It also was a ton of fun to build :) We both dropped out of CMU for one semester and rented a hacker house in Haight-Ashbury. I have a ton of fond memories of staying up late to prepare for demos, running customer development calls, getting distracted from work with karaoke, and hanging out with other founders in the city.
 
 ## The Product
 
