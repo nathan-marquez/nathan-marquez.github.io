@@ -58,11 +58,11 @@ Eventually, we ran out of time, and the event organizers started calling for pre
 Defeated, we watched others present their projects. Some people integrated Cursor Agents with their Apple Watches so they could kick off code changes from their wrists.  
 Others built workflow integrations similar to ours, connecting to task management systems.  
 
-As we were watching, a **hail-mary** idea came to mind: make the repo public.  
+As we were watching, a *hail-mary* idea came to mind: make the repo public.  
 Surely the agent *had* to be able to access the design system repo if it was public, right?  
-I had Chamod (the repo owner) clone it and make it public... but alas, it still didn’t work.
+I asked Chamod (the repo owner) to clone it and make it public... but alas, it still didn’t work.
 
-Then I had a final *hail-hail-mary* -- clone the public repo myself.  
+Then I had a final **hail-hail-mary** -- clone the public repo myself.  
 I figured maybe something was off with the integration on Chamod’s GitHub account.  
 So I cloned it, plugged the new repo into the automation... and it worked! 🎉
 
