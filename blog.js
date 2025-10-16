@@ -61,6 +61,9 @@ async function loadPosts(limit = null, page = 1) {
             filesToShow = postFiles;
         }
         
+        // Clear container now that we have the post list
+        container.innerHTML = '';
+        
         // Process each post
         for (const filename of filesToShow) {
             try {
@@ -242,7 +245,8 @@ function renderPagination(page) {
         prevButton.textContent = '← Previous';
         prevButton.onclick = () => {
             currentPage--;
-            document.getElementById('posts-feed').innerHTML = '';
+            const feedContainer = document.getElementById('posts-feed');
+            feedContainer.innerHTML = '<p>Loading...</p>';
             loadPosts(null, currentPage);
             window.scrollTo(0, 0);
         };
@@ -261,7 +265,8 @@ function renderPagination(page) {
         nextButton.textContent = 'Next →';
         nextButton.onclick = () => {
             currentPage++;
-            document.getElementById('posts-feed').innerHTML = '';
+            const feedContainer = document.getElementById('posts-feed');
+            feedContainer.innerHTML = '<p>Loading...</p>';
             loadPosts(null, currentPage);
             window.scrollTo(0, 0);
         };
