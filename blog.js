@@ -205,7 +205,10 @@ async function loadPosts(limit = null, page = 1) {
                 container.appendChild(postElement);
             } catch (error) {
                 console.error(`Error loading post ${filename}:`, error);
-                container.innerHTML += `<p>Error loading post: ${filename}</p>`;
+                const errorElement = document.createElement('p');
+                errorElement.style.color = '#999';
+                errorElement.textContent = `Error loading post: ${filename}`;
+                container.appendChild(errorElement);
             }
         }
         
