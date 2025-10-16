@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post - Nathan Marquez</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav>
+        <a href="index.html">About</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+
+    <main>
+        <p><a href="#" id="back-link">← Back to posts</a></p>
+        <article id="post-content"></article>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script>
+        // Get the post file and referrer from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const postFile = urlParams.get('file');
+        const fromPage = urlParams.get('from') || 'index.html';  // Default to About page
+        
+        // Set the back link
+        const backLink = document.getElementById('back-link');
+        backLink.href = fromPage;
+        
+        // Update back link text based on source
+        if (fromPage === 'portfolio.html') {
+            backLink.textContent = '← Back to Portfolio';
+        } else {
+            backLink.textContent = '← Back to About';
+        }
+
+        if (postFile) {
+            fetch(postFile)
+                .then(response => response.text())
+                .then(markdown => {
+                    // Parse frontmatter
+                    let date = null;
+                    let content = markdown;
+                    const frontmatterMatch = markdown.match(/^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/);
+                    if (frontmatterMatch) {
+                        const frontmatter = frontmatterMatch[1];
+                        content = frontmatterMatch[2];
+                        const dateMatch = frontmatter.match(/date:\s*(.+)/);
+                        if (dateMatch) {
+                            date = dateMatch[1].trim();
+                        }
+                    }
+                    
+                    // Extract title
+                    const titleMatch = content.match(/^#+ (.+)$/m);
+                    const title = titleMatch ? titleMatch[1] : 'Post';
+                    
+                    // Format date nicely
+                    let dateHTML = '';
+                    if (date) {
+                        const dateObj = new Date(date);
+                        const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                            year: 'numeric', 
+                            month: 'long', 
+                            day: 'numeric' 
+                        });
+                        dateHTML = `<p class="post-date">${formattedDate}</p>`;
+                    }
+                    
+                    // Parse markdown to HTML
+                    let html = marked.parse(content);
+                    
+                    // Convert image tags that are actually videos to video elements
+                    html = html.replace(/<img src="([^"]+\.(mp4|webm|mov))"[^>]*>/gi, (match, videoSrc, ext) => {
+                        const videoType = ext === 'webm' ? 'video/webm' : 'video/mp4';
+                        return `<video autoplay loop muted playsinline controls style="max-width: 100%;">
+                            <source src="${videoSrc}" type="${videoType}">
+                        </video>`;
+                    });
+                    
+                    // Insert title, date, then content
+                    document.getElementById('post-content').innerHTML = `
+                        <h1>${title}</h1>
+                        ${dateHTML}
+                        ${html.replace(/<h1>.*?<\/h1>/, '')}
+                    `;
+                    
+                    // Update page title
+                    document.title = title + ' - Nathan Marquez';
+                })
+                .catch(error => {
+                    document.getElementById('post-content').innerHTML = '<p>Error loading post.</p>';
+                    console.error('Error:', error);
+                });
+        } else {
+            document.getElementById('post-content').innerHTML = '<p>No post specified.</p>';
+        }
+    </script>
+</body>
+</html>
+
