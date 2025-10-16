@@ -43,3 +43,4 @@ old_template_backup/
 # Python
 __pycache__/
 *.py[cod]
+.DS_Store
