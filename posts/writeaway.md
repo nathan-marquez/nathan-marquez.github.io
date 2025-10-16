@@ -5,7 +5,7 @@ date: 2025-07-10
 
 ![Write Away Demo](media/writeaway/write_away.mp4)
 
-Try it at [www.writeaway.fun](www.writeaway.fun)! This was my submission for the Bolt.new world's largest hackathon. It's essentially a "Cursor for Writing". You can make agentic edits across files, press tab to autocomplete, and there are even reactive "AI-Blocks" that update
+Try it at [www.writeaway.fun](https://www.writeaway.fun/)! This was my submission for the Bolt.new world's largest hackathon. It's essentially a "Cursor for Writing". You can make agentic edits across files, press tab to autocomplete, and there are even reactive "AI-Blocks" that update
 in real time based on the content of the document.
 
 ## Tech Stack
