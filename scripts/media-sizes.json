@@ -1,0 +1,206 @@
+[
+  {
+    "source": "media/bodega.jpg",
+    "originalBytes": 672611,
+    "optimizedBytes": 17720,
+    "previewBytes": null
+  },
+  {
+    "source": "media/bodega_product.png",
+    "originalBytes": 517294,
+    "optimizedBytes": 16648,
+    "previewBytes": null
+  },
+  {
+    "source": "media/cursor_hackathon/cursor_demo.mp4",
+    "originalBytes": 34964337,
+    "optimizedBytes": 3158430,
+    "previewBytes": 237391
+  },
+  {
+    "source": "media/cursor_hackathon/event.png",
+    "originalBytes": 78410,
+    "optimizedBytes": 10966,
+    "previewBytes": null
+  },
+  {
+    "source": "media/cursor_hackathon/launch.png",
+    "originalBytes": 584602,
+    "optimizedBytes": 57012,
+    "previewBytes": null
+  },
+  {
+    "source": "media/cursor_hackathon/team.jpeg",
+    "originalBytes": 4914155,
+    "optimizedBytes": 89378,
+    "previewBytes": null
+  },
+  {
+    "source": "media/fittd.jpg",
+    "originalBytes": 1259288,
+    "optimizedBytes": 87982,
+    "previewBytes": null
+  },
+  {
+    "source": "media/hellafast_demo.mp4",
+    "originalBytes": 2558962,
+    "optimizedBytes": 2152467,
+    "previewBytes": 160123
+  },
+  {
+    "source": "media/me.jpg",
+    "originalBytes": 822274,
+    "optimizedBytes": 54750,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/demo.mp4",
+    "originalBytes": 4293575,
+    "optimizedBytes": 5056292,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/demo1.mp4",
+    "originalBytes": 27076710,
+    "optimizedBytes": 27023247,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/demo2.jpg",
+    "originalBytes": 514936,
+    "optimizedBytes": 166726,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/demo3.jpg",
+    "originalBytes": 241792,
+    "optimizedBytes": 105480,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/demo4.jpg",
+    "originalBytes": 540658,
+    "optimizedBytes": 121498,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/katrina.mp4",
+    "originalBytes": 237371,
+    "optimizedBytes": 115088,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/ploop1.mp4",
+    "originalBytes": 326197,
+    "optimizedBytes": 460770,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/ploop2.mp4",
+    "originalBytes": 146470,
+    "optimizedBytes": 279617,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/ploop3.mp4",
+    "originalBytes": 160321,
+    "optimizedBytes": 314633,
+    "previewBytes": null
+  },
+  {
+    "source": "media/ploopy/ploopy_demo.mp4",
+    "originalBytes": 8243866,
+    "optimizedBytes": 606897,
+    "previewBytes": 165845
+  },
+  {
+    "source": "media/small_acadia.mp4",
+    "originalBytes": 1644619,
+    "optimizedBytes": 2454516,
+    "previewBytes": 181432
+  },
+  {
+    "source": "media/soupy/eval.mp4",
+    "originalBytes": 43678349,
+    "optimizedBytes": 861567,
+    "previewBytes": null
+  },
+  {
+    "source": "media/soupy/soupy_demo.mp4",
+    "originalBytes": 44383031,
+    "optimizedBytes": 2515272,
+    "previewBytes": 45036
+  },
+  {
+    "source": "media/trendscope.png",
+    "originalBytes": 3810107,
+    "optimizedBytes": 52636,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/artifacts.png",
+    "originalBytes": 106266,
+    "optimizedBytes": 18810,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/bolt_ask.png",
+    "originalBytes": 116441,
+    "optimizedBytes": 36082,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/bolt_comment.png",
+    "originalBytes": 614301,
+    "optimizedBytes": 47454,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/bolt_present.png",
+    "originalBytes": 2016165,
+    "optimizedBytes": 44888,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/bolt_showcase.png",
+    "originalBytes": 632967,
+    "optimizedBytes": 44960,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/db_demo.png",
+    "originalBytes": 796718,
+    "optimizedBytes": 36742,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/db_submission.png",
+    "originalBytes": 73833,
+    "optimizedBytes": 20342,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/design.png",
+    "originalBytes": 206926,
+    "optimizedBytes": 24862,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/logo.png",
+    "originalBytes": 2903311,
+    "optimizedBytes": 140174,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/roadmap.png",
+    "originalBytes": 525373,
+    "optimizedBytes": 52836,
+    "previewBytes": null
+  },
+  {
+    "source": "media/writeaway/write_away.mp4",
+    "originalBytes": 44871720,
+    "optimizedBytes": 2172854,
+    "previewBytes": 131901
+  }
+]

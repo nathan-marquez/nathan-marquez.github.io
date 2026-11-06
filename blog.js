@@ -7,13 +7,14 @@
  * - Two rendering modes: preview (About page) and full (Portfolio page)
  * - Auto-detects video files and converts to <video> tags
  * 
- * Dependencies: marked.js (loaded via CDN)
+ * Media rendering: media.js and the generated media-manifest.js
  */
 
 // Pagination state
 let currentPage = 1;
 const POSTS_PER_PAGE = 5;
 let totalPosts = 0;
+let loadVersion = 0;
 
 /**
  * Load and render blog posts
@@ -21,6 +22,8 @@ let totalPosts = 0;
  * @param {number} page - Current page number for pagination (1-indexed)
  */
 async function loadPosts(limit = null, page = 1) {
+    const version = ++loadVersion;
+    currentPage = page;
     // Determine which container we're rendering to
     const feedContainer = document.getElementById('posts-feed');        // Portfolio page
     const previewContainer = document.getElementById('posts-preview');  // About page
@@ -32,20 +35,18 @@ async function loadPosts(limit = null, page = 1) {
         return;
     }
     
-    if (typeof marked === 'undefined') {
-        console.error('Marked library not loaded');
-        container.innerHTML = '<p>Error: Blog system not loaded properly.</p>';
-        return;
-    }
-    
     const isPreview = !!previewContainer;
     
     try {
         // Fetch list of post filenames from posts.json
         const postsResponse = await fetch('posts.json');
+        if (!postsResponse.ok) throw new Error(`HTTP error! status: ${postsResponse.status}`);
         const postFiles = await postsResponse.json();
+        if (version !== loadVersion) return;
         
         totalPosts = postFiles.length;
+        page = Math.max(1, Math.min(page, Math.max(1, Math.ceil(totalPosts / POSTS_PER_PAGE))));
+        currentPage = page;
         
         // Apply limit for preview mode OR pagination for full feed
         let filesToShow;
@@ -62,10 +63,17 @@ async function loadPosts(limit = null, page = 1) {
         }
         
         // Clear container now that we have the post list
+        SiteMedia.disconnect();
         container.innerHTML = '';
         
-        // Process each post
-        for (const filename of filesToShow) {
+        if (!isPreview && feedContainer) renderPagination(page);
+
+        // Start every request together; ordered placeholders let each post appear independently.
+        await Promise.all(filesToShow.map(async filename => {
+            const postElement = document.createElement('div');
+            postElement.className = isPreview ? 'post-preview' : 'post';
+            postElement.textContent = 'Loading…';
+            container.appendChild(postElement);
             try {
                 // Fetch markdown content
                 const postFile = `posts/${filename}`;
@@ -74,6 +82,7 @@ async function loadPosts(limit = null, page = 1) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 const markdown = await response.text();
+                if (version !== loadVersion) return;
                 
                 // Parse YAML frontmatter (currently: date)
                 let date = null;
@@ -138,10 +147,6 @@ async function loadPosts(limit = null, page = 1) {
                     }
                 }
                 
-                // Create post DOM element
-                const postElement = document.createElement('div');
-                postElement.className = isPreview ? 'post-preview' : 'post';
-                
                 // Add referrer to post URL so we know where to go back
                 const referrer = isPreview ? 'index.html' : 'portfolio.html';
                 const postUrl = `post.html?file=${encodeURIComponent(postFile)}&from=${referrer}`;
@@ -165,19 +170,16 @@ async function loadPosts(limit = null, page = 1) {
                     // FULL MODE (Portfolio page): Thumbnail + date + title + excerpt
                     let thumbnailHTML = '';
                     if (thumbnail) {
-                        if (isVideo || videoMatch) {
-                            const videoType = thumbnail.endsWith('.webm') ? 'video/webm' : 'video/mp4';
+                        if (isVideo) {
                             thumbnailHTML = `
                                 <a href="${postUrl}" class="post-thumbnail">
-                                    <video autoplay loop muted playsinline style="width: 100%; height: auto;">
-                                        <source src="${thumbnail}" type="${videoType}">
-                                    </video>
+                                    ${SiteMedia.videoHTML(thumbnail, { preview: true, alt: title })}
                                 </a>
                             `;
                         } else {
                             thumbnailHTML = `
                                 <a href="${postUrl}" class="post-thumbnail">
-                                    <img src="${thumbnail}" alt="${title}" style="width: 100%; height: auto;">
+                                    ${SiteMedia.imageHTML(thumbnail, title)}
                                 </a>
                             `;
                         }
@@ -202,21 +204,16 @@ async function loadPosts(limit = null, page = 1) {
                     `;
                 }
                 
-                container.appendChild(postElement);
+                SiteMedia.activate(postElement);
             } catch (error) {
+                if (version !== loadVersion) return;
                 console.error(`Error loading post ${filename}:`, error);
-                const errorElement = document.createElement('p');
-                errorElement.style.color = '#999';
-                errorElement.textContent = `Error loading post: ${filename}`;
-                container.appendChild(errorElement);
+                postElement.textContent = `Error loading post: ${filename}`;
             }
-        }
+        }));
         
-        // Add pagination controls for full feed (portfolio page)
-        if (!isPreview && feedContainer) {
-            renderPagination(page);
-        }
     } catch (error) {
+        if (version !== loadVersion) return;
         console.error('Error loading posts list:', error);
         container.innerHTML = '<p>Error loading blog posts.</p>';
     }
@@ -247,10 +244,9 @@ function renderPagination(page) {
         const prevButton = document.createElement('button');
         prevButton.textContent = '← Previous';
         prevButton.onclick = () => {
-            currentPage--;
             const feedContainer = document.getElementById('posts-feed');
             feedContainer.innerHTML = '<p>Loading...</p>';
-            loadPosts(null, currentPage);
+            loadPosts(null, page - 1);
             window.scrollTo(0, 0);
         };
         paginationDiv.appendChild(prevButton);
@@ -267,10 +263,9 @@ function renderPagination(page) {
         const nextButton = document.createElement('button');
         nextButton.textContent = 'Next →';
         nextButton.onclick = () => {
-            currentPage++;
             const feedContainer = document.getElementById('posts-feed');
             feedContainer.innerHTML = '<p>Loading...</p>';
-            loadPosts(null, currentPage);
+            loadPosts(null, page + 1);
             window.scrollTo(0, 0);
         };
         paginationDiv.appendChild(nextButton);

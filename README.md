@@ -7,7 +7,7 @@ A minimal personal portfolio website built with plain HTML, CSS, and JavaScript.
 ## Tech Stack
 
 - **Frontend**: Vanilla HTML5, CSS3, JavaScript (ES6+)
-- **Markdown Parsing**: [Marked.js](https://marked.js.org/) via CDN
+- **Markdown Parsing**: [Marked.js](https://marked.js.org/) (vendored locally)
 - **Hosting**: GitHub Pages
 - **Domain**: Custom domain via CNAME
 
@@ -244,3 +244,42 @@ See `LICENSE.txt` for details.
 ---
 
 Built with ❤️ by Nathan Marquez
+
+## Media performance
+
+The live site uses generated files in `media/optimized/`; original files stay in
+`media/` as source material. `media-manifest.js` maps each original path to its
+optimized image/video, dimensions, poster and optional portfolio preview. Posts
+continue to reference original paths, so the Markdown format has not changed.
+
+After adding or replacing media, regenerate the assets and commit the generated
+files, manifest and homepage together:
+
+```sh
+# Prerequisites: Python 3 + Pillow, ffmpeg and ffprobe.
+python3 -m pip install Pillow
+python3 scripts/optimize_media.py
+python3 scripts/check_media.py
+```
+
+Images are responsive WebP (up to 1520 px for a 760 px content column, and 500 px
+for the profile). Full demos use H.264 at up to 1280 px wide/30 fps with their
+audio retained. The existing HDR phone clip is remuxed with fast-start metadata
+without changing its HEVC video/colors. Portfolio video previews are silent,
+up to eight seconds long, and at most 960 px wide. The script's `PREVIEWS` set
+selects which videos get these short previews; add a new post's first video
+there when needed. `scripts/media-sizes.json` records source and output sizes.
+
+Video sources attach shortly before reaching the viewport; playback begins
+only when visible and pauses offscreen. Reduced-motion/data-saving visitors get
+static portfolio covers and manual full-demo playback. New assets without a
+manifest entry fall back to their original paths until regenerated. Marked is
+vendored locally (version and license in `vendor/`) so post rendering does not
+wait for a third-party JavaScript CDN.
+
+Development checks (no dependencies are needed to host the site):
+
+```sh
+npm install
+npm test
+```

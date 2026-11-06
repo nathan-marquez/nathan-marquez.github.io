@@ -137,6 +137,7 @@ hr {
 
 .post-thumbnail img,
 .post-thumbnail video {
+    width: 100%;
     max-width: 100%;
     height: auto;
     display: block;
